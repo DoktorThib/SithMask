@@ -2,9 +2,21 @@
 
 CRGB big_ring[RING_BIG_NB];
 
-void Setup (){
+void SetupBigRing (){
   FastLED.addLeds<LED_TYPE, BIG_RING_PIN, COLOR_ORDER>(big_ring, RING_BIG_NB);
 }
+
+void ShowLedBigRing( colorRGB rgb )
+{
+    int i=0;
+    for(i=0 ;i < RING_BIG_NB ; i++)
+    {
+        big_ring[i].setRGB(rgb.r, rgb.g, rgb.b);
+    }
+    FastLED.show();
+    delay(50);
+}
+
 void CircularColor (int red, int green, int blue)
 {
   int i =0;

@@ -3,12 +3,14 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
+#include "param.h"
 
 #define RING_BIG_NB     24
 #define COLOR_ORDER RGB
 
-#define BIG_RING_PIN    2
-#define LED_TYPE WS2812B
+
+void SetupBigRing ();
+void ShowLedStrip( colorRGB rgb );
 
 void CircularColor (int red, int green, int blue);
 
