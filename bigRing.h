@@ -10,7 +10,7 @@
 
 
 void SetupBigRing ();
-void ShowLedStrip( colorRGB rgb );
+void ShowLedBigRing( colorRGB rgb );
 
 void CircularColor (int red, int green, int blue);
 

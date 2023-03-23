@@ -2,6 +2,7 @@
 #define PARAM_H_
 
 #include <Arduino.h>
+#include <Wire.h>
 #include "param.h"
 
 #define BIG_RING_PIN    2
@@ -24,11 +25,27 @@
 #define COOLING 55
 #define SPARKING 120
 
+/*MPU param*/
+#define MPU_ADDR 0x68
+
+#define DOWN_Y 95
+#define MID_Y  116
+#define UP_Y   144
+
+#define ROT_RIGHT   123
+#define ROT_CASUAL  180
+#define ROT_LEFT    249
 
 struct colorRGB{
     int16_t r;
     int16_t g;
     int16_t b;
+};
+
+struct MPU_deg{
+    double degX;
+    double degY;
+    double degZ;
 };
 
 #endif
