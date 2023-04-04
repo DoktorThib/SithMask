@@ -1,4 +1,5 @@
 #include "mpu6050.h"
+#include "led_ctrl.h"
  
 int16_t AcX,AcY,AcZ,Tmp,GyX,GyY,GyZ;
 MPU_deg MPU_deg_val;
@@ -7,9 +8,14 @@ MPU_deg MPU_deg_val;
 int minVal=265;
 int maxVal=402;
 
+MPU_deg MPU_values;
+MPU_deg MPU_values_prev;
+
 /**/
 int xAng = 0 , yAng = 0, zAng = 0; 
-
+/*Help to switch to two states*/
+int16_t flag = 0;
+int16_t mode = 0;
 
 /*Init MPU6050*/
 void SetupMPU(){
@@ -19,6 +25,12 @@ void SetupMPU(){
     Wire.write(0);
     Wire.endTransmission(true);
     Serial.begin(9600);
+
+    /*Init MPU values data to 0 (avoid strange data)*/
+    MPU_values ={180.0,110.0,0.0};
+
+    /*Get the first data*/
+    MPU_values = MPU_get_data ();
 }
 
 MPU_deg MPU_get_data(){
@@ -42,4 +54,33 @@ MPU_deg_val.degX = RAD_TO_DEG * (atan2(-yAng, -zAng)+PI);
 MPU_deg_val.degY = RAD_TO_DEG * (atan2(-xAng, -zAng)+PI);
 MPU_deg_val.degZ = RAD_TO_DEG * (atan2(-yAng, -xAng)+PI);
 return MPU_deg_val;
+}
+
+void MPU_switch_yes(){
+    //get the value of MPU orientation
+  MPU_deg MPU_values = MPU_get_data ();
+  colorRGB rgb = {0,0,0};
+
+  /*Set a new mode when you are looking down and update flag that block repetition mode*/
+  if ((DOWN_Y-10 < MPU_values.degY && MPU_values.degY < DOWN_Y+10) && 0 == flag){
+    if( 0 == mode){
+      mode ++;
+      rgb = {0,0,255};
+    }
+    else if (1 == mode){
+      mode ++;
+      rgb = {255,255,0};
+    }
+    else{
+      mode = 0;
+      rgb = {255,0,255};
+    }
+    ShowAllLed(rgb);
+    flag = 1;
+  }
+  /*reset Flag when you are looking forward !*/
+  if ((MID_Y-10 < MPU_values.degY && MPU_values.degY < MID_Y+10) && 1 == flag){
+    flag = 0;
+  }
+  delay(50); 
 }

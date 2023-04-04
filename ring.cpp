@@ -31,5 +31,5 @@ void ShowLedRing( colorRGB rgb )
         ring_R[i].setRGB(rgb.r, rgb.g, rgb.b);
     }
     FastLED.show();
-    delay(50);
+    //delay(1);
 }

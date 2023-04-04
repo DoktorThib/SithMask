@@ -14,10 +14,10 @@ void ShowLedBigRing( colorRGB rgb )
         big_ring[i].setRGB(rgb.r, rgb.g, rgb.b);
     }
     FastLED.show();
-    delay(50);
+    //delay(50);
 }
 
-void CircularColor (int red, int green, int blue)
+void BigRing_CircularColor (int red, int green, int blue)
 {
   int i =0;
 
@@ -66,5 +66,34 @@ void CircularColor (int red, int green, int blue)
     
     FastLED.show();
     delay(50);    
+  }
+}
+
+
+void BigRing_HalfCircle( colorRGB rgb){
+  int i =0;
+  for(i=0;i<(RING_BIG_NB/2);i++){
+    big_ring[i].setRGB(rgb.r, rgb.g, rgb.b);
+    big_ring[RING_BIG_NB-i].setRGB(rgb.r, rgb.g, rgb.b);
+
+    if(i>0){
+      big_ring[i-1].setRGB(0,0,0);
+      big_ring[RING_BIG_NB-i+1].setRGB(0,0,0);
+    }
+
+    FastLED.show();
+    delay(20);
+  }
+  for(i=RING_BIG_NB/2;i>-1;i--){
+    big_ring[i].setRGB(rgb.r, rgb.g, rgb.b);
+    big_ring[RING_BIG_NB-i].setRGB(rgb.r, rgb.g, rgb.b);
+
+    if(i<(RING_BIG_NB/2)){
+      big_ring[i+1].setRGB(0,0,0);
+      big_ring[RING_BIG_NB-i-1].setRGB(0,0,0);
+    }
+
+    FastLED.show();
+    delay(20);
   }
 }

@@ -12,6 +12,8 @@
 void SetupBigRing ();
 void ShowLedBigRing( colorRGB rgb );
 
-void CircularColor (int red, int green, int blue);
+void BigRing_CircularColor (int red, int green, int blue);
+
+void BigRing_HalfCircle( colorRGB rgb);
 
 #endif

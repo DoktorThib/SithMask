@@ -29,5 +29,5 @@ void ShowLedStrip( colorRGB rgb )
         strip_R[i].setRGB(rgb.r, rgb.g, rgb.b);
     }
     FastLED.show();
-    delay(50);
+    //delay(50);
 }
